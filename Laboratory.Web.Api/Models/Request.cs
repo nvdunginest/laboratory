@@ -13,8 +13,7 @@ public class Request
     [Column("owner_email")]
     public string OwnerEmail { get; private set; }
 
-    [Column("created_time")]
-    [DataType("timestamp without time zone")]
+    [Column("created_time", TypeName = "timestamp without time zone")]
     public DateTime CreatedTime { get; private set; }
 
     [Column("status")]

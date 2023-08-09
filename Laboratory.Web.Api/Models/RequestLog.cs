@@ -10,8 +10,7 @@ public class RequestLog
     [Column("id")]
     public Guid Id { get; private set; }
 
-    [Column("time")]
-    [DataType("timestamp without time zone")]
+    [Column("time", TypeName = "timestamp without time zone")]
     public DateTime Time { get; private set; }
 
     [Column("user")]
