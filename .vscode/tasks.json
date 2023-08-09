@@ -1,0 +1,86 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "build",
+			"command": "dotnet",
+			"type": "process",
+			"args": [
+				"build",
+				"${workspaceFolder}/Laboratory.Web.Api/Laboratory.Web.Api.csproj",
+				"/property:GenerateFullPaths=true",
+				"/consoleloggerparameters:NoSummary"
+			],
+			"problemMatcher": "$msCompile"
+		},
+		{
+			"type": "docker-build",
+			"label": "docker-build: debug",
+			"dependsOn": [
+				"build"
+			],
+			"dockerBuild": {
+				"tag": "laboratory:dev",
+				"target": "base",
+				"dockerfile": "${workspaceFolder}/Laboratory.Web.Api/Dockerfile",
+				"context": "${workspaceFolder}",
+				"pull": true
+			},
+			"netCore": {
+				"appProject": "${workspaceFolder}/Laboratory.Web.Api/Laboratory.Web.Api.csproj"
+			}
+		},
+		{
+			"type": "docker-build",
+			"label": "docker-build: release",
+			"dependsOn": [
+				"build"
+			],
+			"dockerBuild": {
+				"tag": "laboratory:latest",
+				"dockerfile": "${workspaceFolder}/Laboratory.Web.Api/Dockerfile",
+				"context": "${workspaceFolder}",
+				"platform": {
+					"os": "linux",
+					"architecture": "arm64"
+				},
+				"pull": true
+			},
+			"netCore": {
+				"appProject": "${workspaceFolder}/Laboratory.Web.Api/Laboratory.Web.Api.csproj"
+			}
+		},
+		{
+			"type": "docker-run",
+			"label": "docker-run: debug",
+			"dependsOn": [
+				"docker-build: debug"
+			],
+			"dockerRun": {
+				"ports": [
+					{
+						"containerPort": 80,
+						"hostPort": 8001
+					}
+				],
+				"network": "local_default"
+			},
+			"netCore": {
+				"appProject": "${workspaceFolder}/Laboratory.Web.Api/Laboratory.Web.Api.csproj",
+				"enableDebugging": true,
+				"configureSsl": false
+			}
+		},
+		{
+			"type": "docker-run",
+			"label": "docker-run: release",
+			"dependsOn": [
+				"docker-build: release"
+			],
+			"dockerRun": {},
+			"netCore": {
+				"appProject": "${workspaceFolder}/Laboratory.Web.Api/Laboratory.Web.Api.csproj"
+			}
+		}
+	]
+}
