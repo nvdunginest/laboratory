@@ -63,7 +63,10 @@
 						"hostPort": 8001
 					}
 				],
-				"network": "local_default"
+				"network": "emis-app",
+				"env": {
+					"ConnectionString": "Host=postgres;Port=5432;Username=postgres;Password=Ecoba@2020;Database=laboratory;"
+				}
 			},
 			"netCore": {
 				"appProject": "${workspaceFolder}/Laboratory.Web.Api/Laboratory.Web.Api.csproj",

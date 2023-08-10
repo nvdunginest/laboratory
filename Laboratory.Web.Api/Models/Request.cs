@@ -65,9 +65,10 @@ public class Request
         this._logs.Add(new RequestLog(DateTime.Now, user, (int)RequestAction.Receive, this.Id));
     }
 
-    public void Attachment(FileInfo file)
+    public void Attachment(string filePath, string fileName)
     {
-
+        var attachment = new Attachment(fileName, filePath, this.Id);
+        this._attachments.Add(attachment);
     }
 
     public void Close(string user)
