@@ -1,0 +1,16 @@
+{
+    "debug.onTaskErrors": "abort",
+    "azureFunctions.stopFuncTaskPostDebug": false,
+    "azureFunctions.showProjectWarning": false,
+    "csharp.suppressDotnetRestoreNotification": true,
+    "files.exclude": {
+        "obj": true,
+        "bin": true
+    },
+    "azureFunctions.deploySubpath": "api",
+    "azureFunctions.postDeployTask": "npm install (functions)",
+    "azureFunctions.projectLanguage": "TypeScript",
+    "azureFunctions.projectRuntime": "~4",
+    "debug.internalConsoleOptions": "neverOpen",
+    "azureFunctions.preDeployTask": "npm prune (functions)"
+}
