@@ -50,7 +50,7 @@ function downloadFileById(
   fileName: string
 ): Promise<boolean> {
   return axios
-    .get(`${apiUrl}/requests/${requestId}/attachments/${fileId}/download`, {
+    .get(`${apiUrl}/${requestId}/attachments/${fileId}/download`, {
       responseType: "blob",
     })
     .then((res) => {
