@@ -1,0 +1,24 @@
+{
+    "name": "graph-connector-app",
+    "version": "0.0.1",
+    "description": "",
+    "author": "",
+    "engines": {
+        "node": "16 || 18"
+    },
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "devDependencies": {
+        "@microsoft/teamsfx-cli": "1.*"
+    },
+    "license": "MIT",
+    "dependencies": {
+        "@emotion/react": "^11.11.1",
+        "@emotion/styled": "^11.11.0",
+        "@mui/material": "^5.14.4",
+        "@types/styled-components": "^5.1.26",
+        "axios": "^1.4.0",
+        "styled-components": "^6.0.7"
+    }
+}

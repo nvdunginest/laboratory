@@ -1,0 +1,9 @@
+BROWSER=none
+HTTPS=true
+PORT=53000
+SSL_CRT_FILE=/Users/hoangtran/.fx/certificate/localhost.crt
+SSL_KEY_FILE=/Users/hoangtran/.fx/certificate/localhost.key
+REACT_APP_CLIENT_ID=217aa56d-f526-4684-aab9-7a4a764dd1eb
+REACT_APP_START_LOGIN_PAGE_URL=https://localhost:53000/auth-start.html
+REACT_APP_FUNC_NAME=data
+REACT_APP_FUNC_ENDPOINT=http://localhost:7071
