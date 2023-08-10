@@ -24,7 +24,7 @@ public class RequestsController : ControllerBase
     [HttpGet]
     public async Task<IActionResult> GetByIdAsync([FromRoute] Guid requestId, [FromQuery] string email, [FromQuery] string phone)
     {
-        var request = await _context.Requests.FirstOrDefaultAsync(x => x.Id == requestId);
+        var request = await _context.Requests.Include(x => x.Logs).Include(x => x.Attachments).FirstOrDefaultAsync(x => x.Id == requestId);
         if (request == null) return BadRequest();
 
         if (request.OwnerEmail != email || request.OwnerPhone != phone) return BadRequest();
