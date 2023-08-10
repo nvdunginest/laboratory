@@ -26,6 +26,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseCors();
+
 InitializeDatabase(app);
 
 app.UseAuthorization();
