@@ -35,7 +35,7 @@ public class RequestsController : ControllerBase
     [HttpPost]
     public async Task<IActionResult> PostAsync([FromBody] CreateRequestModel model)
     {
-        var request = new Request(model.OwnerEmail, model.OwnerPhone);
+        var request = Models.Request.NewRequest(model.OwnerEmail, model.OwnerPhone);
 
         _context.Requests.Add(request);
 

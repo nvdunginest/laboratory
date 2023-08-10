@@ -1,5 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Globalization;
+using Humanizer;
 
 namespace Laboratory.Web.Api.Models;
 
@@ -29,18 +31,32 @@ public class Request
     private readonly List<Attachment> _attachments;
     public virtual IReadOnlyCollection<Attachment> Attachments => _attachments;
 
-    public Request(string ownerEmail, string ownerPhone)
+    private Request(string ownerEmail, DateTime createdTime, int status, string ownerPhone)
     {
-        this.Id = Guid.NewGuid();
         this.OwnerEmail = ownerEmail;
+        this.CreatedTime = createdTime;
+        this.Status = status;
         this.OwnerPhone = ownerPhone;
-        this.Status = (int)RequestStatus.New;
-        this.CreatedTime = DateTime.Now;
 
         this._logs = new List<RequestLog>();
         this._attachments = new List<Attachment>();
+    }
 
-        this._logs.Add(new RequestLog(this.CreatedTime, this.OwnerEmail, (int)RequestAction.Receive, this.Id));
+    public static Request NewRequest(string ownerEmail, string ownerPhone)
+    {
+        var request = new Request(ownerEmail, DateTime.Now, (int)RequestStatus.New, ownerPhone);
+
+        request.AddCreateAction();
+
+        return request;
+    }
+
+    public void AddCreateAction()
+    {
+        if (this._logs.Count == 0)
+        {
+            this._logs.Add(new RequestLog(this.CreatedTime, this.OwnerEmail, (int)RequestAction.Create, this.Id));
+        }
     }
 
     public void Receive(string user)
@@ -71,6 +87,7 @@ public enum RequestStatus
 
 public enum RequestAction
 {
+    Create,
     Receive,
     Close,
     Reject

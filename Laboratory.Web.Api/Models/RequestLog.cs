@@ -26,7 +26,6 @@ public class RequestLog
 
     public RequestLog(DateTime time, string user, int actionType, Guid requestId)
     {
-        this.Id = Guid.NewGuid();
         this.Time = time;
         this.User = user;
         this.ActionType = actionType;

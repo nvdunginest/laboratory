@@ -24,7 +24,6 @@ public class Attachment
 
     public Attachment(string filename, string filePath, Guid requestId)
     {
-        this.Id = Guid.NewGuid();
         this.Filename = filename;
         this.FilePath = filePath;
         this.RequestId = requestId;
