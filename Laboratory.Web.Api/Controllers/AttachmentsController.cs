@@ -1,5 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.StaticFiles;
 using Microsoft.EntityFrameworkCore;
+using System.IO;
 
 namespace Laboratory.Web.Api.Controllers;
 
@@ -20,6 +22,46 @@ public class AttachmentsController : ControllerBase
         _responseData = new ResponseContext();
         tempFolder = "Uploads";
     }
+
+    [HttpGet("{id}/download")]
+    public async Task<IActionResult> DownloadFileById([FromRoute] Guid requestId, [FromRoute] Guid id)
+    {
+        try
+        {
+            var exist = await _context.Attachments.Where(x => x.Id == id && x.RequestId == requestId).SingleOrDefaultAsync();
+            if (exist != null)
+            {
+                string fullPath = Path.Combine(exist.FilePath, exist.Filename);
+                if (System.IO.File.Exists(fullPath))
+                {
+                    var memory = new MemoryStream();
+                    using (var stream = new FileStream(fullPath, FileMode.Open))
+                    {
+                        await stream.CopyToAsync(memory);
+                    }
+                    memory.Position = 0;
+                    var fileExtensionProvider = new FileExtensionContentTypeProvider();
+                    string contentType = "";
+                    if (fileExtensionProvider.TryGetContentType(exist.Filename, out contentType))
+                    {
+                        return File(memory, contentType, exist.Filename);
+                    }
+                    else
+                    {
+                        return BadRequest();
+                    }
+                }
+            }
+            return NotFound();
+
+        }
+        catch (Exception ex)
+        {
+            return BadRequest($"Error downloading file: {ex.Message}");
+        }
+
+    }
+
 
     [HttpPost("start-session")]
     public async Task<IActionResult> UploadChunks([FromRoute] string requestId, [FromQuery] string id, [FromQuery] string fileName)
@@ -53,14 +95,14 @@ public class AttachmentsController : ControllerBase
         return Ok(_responseData);
     }
 
-    [HttpPost("finis-session")]
+    [HttpPost("finish-session")]
     public async Task<IActionResult> UploadCompleteAsync([FromRoute] Guid requestId, [FromQuery] string fileName, [FromQuery] string fileRealName)
     {
         try
         {
             string tempPath = tempFolder + "/Temp" + $"/{requestId}";
             string newPath = Path.Combine(tempPath, fileName);
-            string endPath = tempFolder + $"/{requestId}/";
+            string endPath = tempFolder + $"/{requestId}";
             string[] filePaths = Directory.GetFiles(tempPath).Where(p => p.Contains(fileName)).OrderBy(p => Int32.Parse(p.Replace(fileName, "$").Split('$')[1])).ToArray();
             foreach (string filePath in filePaths)
             {
