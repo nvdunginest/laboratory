@@ -1,0 +1,1 @@
+export type PaletteType = 'primary' | 'secondary' | 'success' | 'info' | 'warning' | 'danger' | 'dark' | 'inherit';

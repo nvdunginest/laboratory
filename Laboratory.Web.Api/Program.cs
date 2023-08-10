@@ -9,7 +9,9 @@ builder.Services.AddDbContext<AppDbContext>(options => options.UseNpgsql(builder
 
 builder.Services.AddCors(policyBuilder =>
     policyBuilder.AddDefaultPolicy(policy =>
-        policy.WithOrigins("*").AllowAnyHeader().AllowAnyHeader())
+        policy.WithOrigins("*")
+            .AllowAnyMethod()
+            .AllowAnyHeader())
 );
 
 builder.Services.AddControllers().AddJsonOptions((x) => x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
