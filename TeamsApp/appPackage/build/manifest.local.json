@@ -37,10 +37,28 @@
     ],
     "staticTabs": [
         {
-            "entityId": "index",
-            "name": "Personal Tab",
-            "contentUrl": "https://localhost:53000/index.html#/tab",
-            "websiteUrl": "https://localhost:53000/index.html#/tab",
+            "entityId": "create",
+            "name": "Tạo mới",
+            "contentUrl": "https://localhost:53000/index.html#/create",
+            "websiteUrl": "https://localhost:53000/index.html#/create",
+            "scopes": [
+                "personal"
+            ]
+        },
+        {
+            "entityId": "requested",
+            "name": "Đã gửi",
+            "contentUrl": "https://localhost:53000/index.html#/requested",
+            "websiteUrl": "https://localhost:53000/index.html#/requested",
+            "scopes": [
+                "personal"
+            ]
+        },
+        {
+            "entityId": "received",
+            "name": "Đã nhận",
+            "contentUrl": "https://localhost:53000/index.html#/received",
+            "websiteUrl": "https://localhost:53000/index.html#/received",
             "scopes": [
                 "personal"
             ]

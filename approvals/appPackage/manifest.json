@@ -1,0 +1,94 @@
+{
+  "$schema": "https://developer.microsoft.com/en-us/json-schemas/teams/v1.16/MicrosoftTeams.schema.json",
+  "manifestVersion": "1.16",
+  "version": "1.0.0",
+  "id": "${{TEAMS_APP_ID}}",
+  "packageName": "com.ptht365.teams.approvals",
+  "developer": {
+    "name": "PTHT365",
+    "websiteUrl": "${{TAB_ENDPOINT}}",
+    "privacyUrl": "${{TAB_ENDPOINT}}/index.html#/privacy",
+    "termsOfUseUrl": "${{TAB_ENDPOINT}}/index.html#/termsofuse"
+  },
+  "icons": {
+    "color": "color.png",
+    "outline": "outline.png"
+  },
+  "name": {
+    "short": "ptht-approvals-${{TEAMSFX_ENV}}",
+    "full": "Hệ thống phê duyệt nội bộ"
+  },
+  "description": {
+    "short": "Approvals",
+    "full": "Hệ thống phê duyệt nội bộ"
+  },
+  "accentColor": "#FFFFFF",
+  "bots": [],
+  "composeExtensions": [],
+  "configurableTabs": [],
+  "staticTabs": [
+    {
+      "entityId": "create",
+      "name": "Tạo mới",
+      "contentUrl": "${{TAB_ENDPOINT}}/index.html#/create",
+      "websiteUrl": "${{TAB_ENDPOINT}}/index.html#/create",
+      "scopes": [
+        "personal"
+      ]
+    },
+    {
+      "entityId": "sent",
+      "name": "Đã gửi",
+      "contentUrl": "${{TAB_ENDPOINT}}/index.html#/sent",
+      "websiteUrl": "${{TAB_ENDPOINT}}/index.html#/sent",
+      "scopes": [
+        "personal"
+      ]
+    },
+    {
+      "entityId": "received",
+      "name": "Đã nhận",
+      "contentUrl": "${{TAB_ENDPOINT}}/index.html#/received",
+      "websiteUrl": "${{TAB_ENDPOINT}}/index.html#/received",
+      "scopes": [
+        "personal"
+      ]
+    }
+  ],
+  "permissions": [
+    "identity",
+    "messageTeamMembers"
+  ],
+  "validDomains": [
+    "${{TAB_DOMAIN}}"
+  ],
+  "webApplicationInfo": {
+    "id": "${{AAD_APP_CLIENT_ID}}",
+    "resource": "api://${{TAB_DOMAIN}}/${{AAD_APP_CLIENT_ID}}"
+  },
+  "activities": {
+    "activityTypes": [
+      {
+        "type": "requestCreated",
+        "description": "Request created for user",
+        "templateText": "{actor} đã gửi yêu cầu phê duyệt tới bạn"
+      },
+      {
+        "type": "requestApproved",
+        "description": "Request is approved by user",
+        "templateText": "{actor} đã phê duyệt yêu cầu"
+      },
+      {
+        "type": "requestRejected",
+        "description": "Request is rejected by user",
+        "templateText": "{actor} đã từ chối yêu cầu"
+      },
+      {
+        "type": "commentCreated",
+        "description": "Comment is created by user",
+        "templateText": "{actor} đã đăng bình luận"
+      }
+    ]
+  },
+  "showLoadingIndicator": false
+}

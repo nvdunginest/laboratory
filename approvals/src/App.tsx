@@ -33,7 +33,6 @@ export default function App() {
         // Hide the loading indicator.
         app.notifySuccess();
       });
-    console.log(app.getContext().then((c) => console.log("context", c)));
   }, [loading]);
   return (
     <TeamsFxContext.Provider
@@ -66,9 +65,3 @@ export default function App() {
     </TeamsFxContext.Provider>
   );
 }
-
-/* 
-
-https://teams.microsoft.com/l/entity/ab4c2678-4cc5-40c3-b497-1df12f38747f/requested/?tenantId=2b5438a9-6a60-437b-afb7-2cc6fd444d86&label=Request1&context={"subEntityId": "12"}
-
-*/
